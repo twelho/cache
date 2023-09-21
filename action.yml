@@ -33,7 +33,8 @@ runs:
   using: 'node16'
   main: 'dist/restore/index.js'
   post: 'dist/save/index.js'
-  post-if: success()
+  # To force saving the cache, ensure that the file '.gh-save-cache' in the default workspace directory exists.
+  post-if: success() || hashFiles(format('{0}/.gh-save-cache', github.workspace)) != ''
 branding:
   icon: 'archive'
   color: 'gray-dark'
